@@ -3,7 +3,7 @@ import { store } from '@/store/store'
 import { refreshToken, clearAuth } from '@/store/slices/authSlice'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   withCredentials: true, // send refresh token cookie
   headers: { 'Content-Type': 'application/json' },
 })

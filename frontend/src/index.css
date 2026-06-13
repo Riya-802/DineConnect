@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-flame: var(--dc-flame);
+  --color-ember: var(--dc-ember);
+  --color-cream: var(--dc-cream);
+  --color-parchment: var(--dc-parchment);
+  --color-sage: var(--dc-sage);
+  --color-clay: var(--dc-clay);
+  --color-charcoal: var(--dc-charcoal);
+}
+
+/* ============================================
+   DESIGN TOKENS — Premium Dark App
+   ============================================ */
+:root {
+  --dc-flame:     #FF4D4D;
+  --dc-ember:     #FF8C42;
+  --dc-cream:     #0B0D12;
+  --dc-parchment: #141820;
+  --dc-sage:      #00E676;
+  --dc-clay:      #94A3B8;
+  --dc-charcoal:  #F8FAFC;
+
+  --shadow-warm:    0 4px 24px rgba(0,0,0,0.4);
+  --shadow-warm-lg: 0 8px 40px rgba(0,0,0,0.6);
+  --shadow-warm-sm: 0 2px 8px rgba(0,0,0,0.2);
+
+  --radius-card:   20px;
+  --radius-button: 14px;
+  --radius-input:  12px;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background-color: var(--dc-cream);
+  color: var(--dc-charcoal);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ambient glow overlay instead of paper texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 77, 77, 0.05), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.font-display { font-family: 'Playfair Display', Georgia, serif; }
+.font-body    { font-family: 'DM Sans', system-ui, sans-serif; }
+
+h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.2; }
+h4, h5, h6 { font-family: 'DM Sans', system-ui, sans-serif; }
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar         { width: 6px; height: 6px; }
+::-webkit-scrollbar-track   { background: var(--dc-parchment); }
+::-webkit-scrollbar-thumb   { background: var(--dc-clay); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--dc-ember); }
+
+/* ============================================
+   LEAFLET MAP OVERRIDES
+   ============================================ */
+.leaflet-container { border-radius: var(--radius-card); }
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius-button) !important;
+  box-shadow: var(--shadow-warm) !important;
+  background: var(--dc-cream) !important;
+}
+
+/* ============================================
+   GLOBAL ANIMATIONS
+   ============================================ */
+@keyframes fadeIn    { from { opacity: 0 } to { opacity: 1 } }
+@keyframes slideUp   { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes shimmer   { from { background-position: -200% 0 } to { background-position: 200% 0 } }
+@keyframes pulseWarm {
+  0%,100% { box-shadow: 0 0 0 0 rgba(216,90,48,0.4) }
+  50%     { box-shadow: 0 0 0 8px rgba(216,90,48,0) }
+}
+
+.animate-fade-in  { animation: fadeIn 0.4s ease-out both }
+.animate-slide-up { animation: slideUp 0.4s ease-out both }
+.animate-slide-down { animation: slideDown 0.3s ease-out both }
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, var(--dc-parchment) 25%, var(--dc-cream-dark, #EFE0C8) 50%, var(--dc-parchment) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.card {
+  background: var(--dc-parchment);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-warm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-warm-lg); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--dc-flame), var(--dc-ember));
+  color: white;
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover  { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(216,90,48,0.35); }
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  background: var(--dc-parchment);
+  color: var(--dc-ember);
+  border: 1.5px solid var(--dc-clay);
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.btn-secondary:hover { background: var(--dc-cream); border-color: var(--dc-ember); }
+
+.input-warm {
+  background: var(--dc-cream);
+  border: 1.5px solid var(--dc-clay);
+  border-radius: var(--radius-input);
+  color: var(--dc-charcoal);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+.input-warm:focus {
+  border-color: var(--dc-flame);
+  box-shadow: 0 0 0 3px rgba(216,90,48,0.12);
+}
+.input-warm::placeholder { color: var(--dc-clay); }
+
+/* Badge variants */
+.badge        { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.badge-flame  { background: rgba(216,90,48,0.12); color: var(--dc-ember); }
+.badge-sage   { background: rgba(90,122,92,0.12); color: var(--dc-sage); }
+.badge-clay   { background: rgba(176,120,80,0.12); color: var(--dc-clay); }
+.badge-amber  { background: rgba(245,158,11,0.12); color: #92400e; }
+
+/* Status colors */
+.status-available  { color: var(--dc-sage); }
+.status-occupied   { color: #dc2626; }
+.status-reserved   { color: #d97706; }
+.status-maintenance{ color: var(--dc-clay); }
+
+/* Section container */
+.container-warm { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(20, 24, 32, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--dc-flame);
+  outline-offset: 2px;
+}
+
+/* Page transition wrapper */
+.page-enter { animation: slideUp 0.35s ease-out both; }
+
+/* Divider */
+.divider-warm {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--dc-clay), transparent);
+  opacity: 0.3;
+}
